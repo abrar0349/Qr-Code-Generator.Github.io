@@ -9,7 +9,7 @@ let QrContainer = document.getElementsByClassName('qr-body')[0];
 // let size = QrSize.value
 // console.log(QrCode,QrSize,generateBtn,downloadBtn)
 
-let size = parseInt(QrSize.value); // Parse size to an integer
+let size = parseInt(QrSize.value); 
 
 QrSize.addEventListener("change",(e) => {
     size = e.target.value
@@ -31,17 +31,27 @@ function isEmptyInput(){
 
 function generateQrCode() {
   
-    QrContainer.innerHTML = ''; // Clear previous QR code if necessary
+    QrContainer.innerHTML = ''; // Clear previous QR code
 
-    new QRCode(QrContainer, { // Correct constructor name
+    new QRCode(QrContainer, { 
         text: QrCode.value,
         width: size,
         height: size,
         colorDark: '#000',
         colorLight: '#fff',
     });
-    console.log(QRCode)
+    // console.log(QRCode)
 }
+
+downloadBtn.addEventListener('click', (e) => {
+ let img = document.querySelector('.qr-body img')
+ if(img !== null){
+    let imgAtt = img.getAttribute('src')
+    downloadBtn.setAttribute('href',imgAtt)
+ }else{
+    downloadBtn.setAttribute('href',`${document.querySelector('canvas').toDataURL()}`)
+ }
+})
 
 
 
